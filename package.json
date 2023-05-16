@@ -1,6 +1,9 @@
 {
   "name": "@altack/nx-bundlefy",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "repository": {
+    "url": "https://github.com/altack/nx-bundlefy.git"
+  },
   "description": "Nx executor to ensure that all the buildable dependencies of the publishable library are bundled together with the library",
   "main": "./dist/index.js",
   "executors": "./executor.json",
@@ -10,9 +13,7 @@
     "schema.json"
   ],
   "scripts": {
-    "build": "npx tsc",
-    "pack": "npm pack",
-    "publish": "npm publish --access public"
+    "build": "npx tsc"
   },
   "dependencies": {
     "tslib": "^2.5.0"
