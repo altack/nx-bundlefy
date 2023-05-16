@@ -1,0 +1,41 @@
+{
+  "name": "@altack/nx-bundlefy",
+  "version": "0.0.1",
+  "description": "Nx executor to ensure that all the buildable dependencies of the publishable library are bundled together with the library",
+  "main": "./dist/index.js",
+  "executors": "./executor.json",
+  "files": [
+    "dist/**/*",
+    "executor.json",
+    "schema.json"
+  ],
+  "scripts": {
+    "build": "npx tsc",
+    "pack": "npm pack",
+    "publish": "npm publish --access public"
+  },
+  "dependencies": {
+    "tslib": "^2.5.0"
+  },
+  "peerDependencies": {
+    "@nrwl/devkit": ">=15.9.0",
+    "@nrwl/js": ">=15.9.0",
+    "@nrwl/workspace": ">=15.9.0",
+    "validate-npm-package-name": ">=5.0.0"
+  },
+  "keywords": [
+    "nx",
+    "bundle",
+    "publishable library",
+    "executor",
+    "tsc"
+  ],
+  "author": {
+    "email": "guzmanoj@altack.com",
+    "name": "Jose Guzman"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "run": {
+      "implementation": "./dist/index.js",
+      "schema": "./schema.json",
+      "description": "Bundles all required buildable dependencies together with the publishable library"
+    }
+  }
+}

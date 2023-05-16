@@ -1,0 +1,23 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "outDir": "dist",
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2020",
+        "module": "commonjs",
+        "lib": ["es2020", "dom"],
+        "types": ["node"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "isolatedModules": true,
+        "baseUrl": "."
+    },
+    "exclude": ["dist"]
+}
