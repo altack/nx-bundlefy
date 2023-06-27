@@ -10,8 +10,8 @@ import {
     ProjectGraph,
     createProjectGraphAsync,
     getOutputsForTargetAndConfiguration
-} from '@nrwl/devkit';
-import { createDirectory, directoryExists } from '@nrwl/workspace/src/utils/fileutils';
+} from '@nx/devkit';
+import { createDirectory, directoryExists } from '@nx/workspace/src/utils/fileutils';
 import { calculateProjectDependencies } from '@nx/js/src/utils/buildable-libs-utils';
 import validate from 'validate-npm-package-name';
 
