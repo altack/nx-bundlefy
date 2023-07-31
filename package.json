@@ -1,6 +1,6 @@
 {
   "name": "@altack/nx-bundlefy",
-  "version": "0.0.2",
+  "version": "0.16.0",
   "repository": {
     "url": "https://github.com/altack/nx-bundlefy.git"
   },
@@ -19,9 +19,9 @@
     "tslib": "^2.5.0"
   },
   "peerDependencies": {
-    "@nrwl/devkit": ">=15.9.0",
-    "@nrwl/js": ">=15.9.0",
-    "@nrwl/workspace": ">=15.9.0",
+    "@nrwl/devkit": ">=16.5.5",
+    "@nrwl/js": ">=16.5.5",
+    "@nrwl/workspace": ">=16.5.5",
     "validate-npm-package-name": ">=5.0.0"
   },
   "keywords": [
@@ -38,5 +38,8 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5"
   }
 }
