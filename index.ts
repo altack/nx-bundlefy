@@ -2,17 +2,18 @@ import { join } from 'path';
 import { EOL } from 'os';
 import { lstatSync, readdirSync, copyFileSync } from 'fs';
 import {
+    createProjectGraphAsync,
     ExecutorContext,
-    ProjectGraphProjectNode,
-    readJsonFile,
-    writeJsonFile,
+    getOutputsForTargetAndConfiguration,
     logger,
     ProjectGraph,
-    createProjectGraphAsync,
-    getOutputsForTargetAndConfiguration
-} from '@nx/devkit';
-import { createDirectory, directoryExists } from '@nx/workspace/src/utils/fileutils';
-import { calculateProjectDependencies } from '@nx/js/src/utils/buildable-libs-utils';
+    ProjectGraphProjectNode,
+    readJsonFile,
+    writeJsonFile
+} from '@nrwl/devkit';
+import { calculateProjectDependencies } from '@nrwl/js/src/utils/buildable-libs-utils';
+import { directoryExists } from '@nrwl/workspace/src/utils/fileutils';
+import { createDirectory } from '@nrwl/workspace';
 import validate from 'validate-npm-package-name';
 
 type BundableDependency = {
@@ -54,7 +55,7 @@ export function updateBundledDependencies(
             target: {
                 project: projectName,
                 target: 'build',
-                configuration: configurationName,
+                configuration: configurationName
             }
         },
         node
