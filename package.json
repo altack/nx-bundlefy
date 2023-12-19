@@ -19,9 +19,9 @@
     "tslib": "^2.5.0"
   },
   "peerDependencies": {
-    "@nrwl/devkit": ">=16.5.5",
-    "@nrwl/js": ">=16.5.5",
-    "@nrwl/workspace": ">=16.5.5",
+    "@nrwl/devkit": ">=17.2.6",
+    "@nrwl/js": ">=17.2.6",
+    "@nrwl/workspace": ">=17.2.6",
     "validate-npm-package-name": ">=5.0.0"
   },
   "keywords": [
@@ -40,6 +40,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/node": "^20.4.5"
+    "@types/node": "^20.4.5",
+    "prettier": "^3.1.1"
   }
 }
