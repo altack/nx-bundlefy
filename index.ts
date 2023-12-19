@@ -11,7 +11,10 @@ import {
     createProjectGraphAsync,
     getOutputsForTargetAndConfiguration
 } from '@nx/devkit';
-import { createDirectory, directoryExists } from '@nx/workspace/src/utils/fileutils';
+import {
+    createDirectory,
+    directoryExists
+} from '@nx/workspace/src/utilities/fileutils';
 import { calculateProjectDependencies } from '@nx/js/src/utils/buildable-libs-utils';
 import validate from 'validate-npm-package-name';
 
@@ -23,7 +26,10 @@ type BundableDependency = {
     distPath: string;
 };
 
-export default async function runExecutor(options: unknown = {}, context: ExecutorContext): Promise<{ success: boolean }> {
+export default async function runExecutor(
+    options: unknown = {},
+    context: ExecutorContext
+): Promise<{ success: boolean }> {
     const projectGraph = await createProjectGraphAsync();
     const { target, nonBuildableDependencies } = calculateProjectDependencies(
         projectGraph,
@@ -33,9 +39,18 @@ export default async function runExecutor(options: unknown = {}, context: Execut
         context.configurationName
     );
 
-    const bundableDependencies = nonBuildableDependencies.map((dependencyName: string) => toBundableDependency(context, projectGraph, dependencyName));
+    const bundableDependencies = nonBuildableDependencies.map(
+        (dependencyName: string) =>
+            toBundableDependency(context, projectGraph, dependencyName)
+    );
 
-    const success = updateBundledDependencies(context.root, context.projectName, context.configurationName, target, bundableDependencies);
+    const success = updateBundledDependencies(
+        context.root,
+        context.projectName,
+        context.configurationName,
+        target,
+        bundableDependencies
+    );
 
     return Promise.resolve({ success });
 }
@@ -48,17 +63,18 @@ export function updateBundledDependencies(
     dependencies: BundableDependency[]
 ): boolean {
     let success = true;
-    const outputs = getOutputsForTargetAndConfiguration(
-        {
-            overrides: {},
-            target: {
-                project: projectName,
-                target: 'build',
-                configuration: configurationName,
-            }
-        },
-        node
-    );
+    const task = {
+        id: 'build',
+        outputs: [],
+        overrides: {},
+        target: {
+            project: projectName,
+            target: 'build',
+            configuration: configurationName
+        }
+    };
+
+    const outputs = getOutputsForTargetAndConfiguration(task, node);
 
     const packageJsonPath = join(outputs[0], 'package.json');
     const nodeModulesPath = join(outputs[0], 'node_modules');
@@ -79,11 +95,20 @@ export function updateBundledDependencies(
         .forEach((dependency: BundableDependency) => {
             if (dependency.validPackageName) {
                 if (!hasDependency(packageJson, dependency.packageName)) {
-                    packageJson['bundledDependencies'].push(dependency.packageName);
+                    packageJson['bundledDependencies'].push(
+                        dependency.packageName
+                    );
                     updatePackageJson = true;
                     logger.info(`${EOL} Processing ${dependency.projectName}`);
-                    copyFolderSync(dependency.distPath, join(nodeModulesPath, dependency.packageName));
-                } else if (!directoryExists(join(nodeModulesPath, dependency.packageName))) {
+                    copyFolderSync(
+                        dependency.distPath,
+                        join(nodeModulesPath, dependency.packageName)
+                    );
+                } else if (
+                    !directoryExists(
+                        join(nodeModulesPath, dependency.packageName)
+                    )
+                ) {
                     logger.warn(`${EOL} Processing ${dependency.projectName}`);
                     logger.warn(
                         `${EOL} The package name ${dependency.packageName} was already declared in your bundledDependencies but was not found in the node_modules`
@@ -104,16 +129,23 @@ export function updateBundledDependencies(
     return success;
 }
 
-function toBundableDependency(context: ExecutorContext, projectGraph: ProjectGraph, dependencyName: string): BundableDependency {
+function toBundableDependency(
+    context: ExecutorContext,
+    projectGraph: ProjectGraph,
+    dependencyName: string
+): BundableDependency {
+    const task = {
+        id: 'build',
+        outputs: [],
+        overrides: {},
+        target: {
+            project: context.projectName,
+            target: 'build',
+            configuration: context.configurationName
+        }
+    };
     const outputs = getOutputsForTargetAndConfiguration(
-        {
-            overrides: {},
-            target: {
-                project: context.projectName,
-                target: 'build',
-                configuration: context.configurationName
-            }
-        },
+        task,
         projectGraph.nodes[dependencyName]
     );
 
@@ -129,7 +161,9 @@ function toBundableDependency(context: ExecutorContext, projectGraph: ProjectGra
             distPath: join(outputs[0])
         };
     } catch (e) {
-        logger.error(`${EOL} Error reading package.json from ${dependencyName}`);
+        logger.error(
+            `${EOL} Error reading package.json from ${dependencyName}`
+        );
         return {
             projectName: dependencyName,
             packageName: null,
@@ -160,7 +194,12 @@ function copyFolderSync(from: string, to: string) {
             try {
                 copyFileSync(join(from, element), join(to, element));
             } catch (e) {
-                logger.error(`${EOL} Could not copy ${join(from, element)} to ${join(to, element)}`);
+                logger.error(
+                    `${EOL} Could not copy ${join(from, element)} to ${join(
+                        to,
+                        element
+                    )}`
+                );
                 throw new Error();
             }
         } else {

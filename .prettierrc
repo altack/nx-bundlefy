@@ -1,0 +1,7 @@
+{
+	"singleQuote": true,
+	"sortImports": true,
+	"sortKeys": true,
+	"trailingComma": "none",
+	"tabWidth": 4
+}
